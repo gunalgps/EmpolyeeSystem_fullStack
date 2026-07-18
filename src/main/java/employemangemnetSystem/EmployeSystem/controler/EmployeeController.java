@@ -1,7 +1,6 @@
 package employemangemnetSystem.EmployeSystem.controler;
 
 import employemangemnetSystem.EmployeSystem.dto.Employeedto;
-import employemangemnetSystem.EmployeSystem.entity.Employee;
 import employemangemnetSystem.EmployeSystem.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,5 +35,16 @@ public class EmployeeController
         return new ResponseEntity<>(employees,HttpStatus.OK);
                 
     }
+    // bulid update emplyyee
+    @PutMapping("/g/{id}")
+    public ResponseEntity<Employeedto> underemployed(@PathVariable Long id, @RequestBody Employeedto update){
+        Employeedto employeedto = employeeService.UpdateEmployee(id,update);
+        return new ResponseEntity<>(employeedto,HttpStatus.OK);
 
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        employeeService.DeletedEmployee(id);
+        return new ResponseEntity<>("Deleted the id ",HttpStatus.OK);
+    }
 }

@@ -41,17 +41,24 @@ public class EmployeeServiceimp implements EmployeeService {
     }
 
     @Override
-    public Employeedto UpdateEmployee(Long Employeeid) {
-        Employee employee = employeeRepository.findById().orElseThrow(
+    public Employeedto UpdateEmployee(Long Employee, Employeedto update) {
+        Employee employee = employeeRepository.findById(Employee).orElseThrow(
                 () -> new ResourceNotFoundExpection("Employe not foundd"));
-        employee.setFristName(UpdateEmployee.getFristName());
-        employee.getLastName(UpdateEmployee.getLastName());
-        employee.getEmail(UpdateEmployee.getEmail());
-
+        employee.setFristName(update.getFristName());
+        employee.setLastName(update.getLastName());
+        employee.setEmail(update.getEmail());
         Employee UpdatedEmployee =employeeRepository.save(employee);
         return EmployeeWrapper.mapToEmployeeDto(UpdatedEmployee);
 
 
     }
+
+    @Override
+    public void DeletedEmployee(Long id) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundExpection("Employee Not found"));
+        employeeRepository.delete(employee);
+
+    }
+
 
 }
